@@ -1,16 +1,16 @@
 const express = require('express');
 const { submitFeedback, getFeedbackByAppointment, getPractitionerFeedback } = require('../controllers/feedbackController');
-const verifyToken = require('../middleware/authMiddleware');
+const { authenticateToken } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
 // Submit feedback
-router.post('/', verifyToken, submitFeedback);
+router.post('/', authenticateToken, submitFeedback);
 
 // Get feedback by appointment ID
-router.get('/appointment/:appointmentId', verifyToken, getFeedbackByAppointment);
+router.get('/appointment/:appointmentId', authenticateToken, getFeedbackByAppointment);
 
 // Get practitioner feedback (for current doctor)
-router.get('/practitioner', verifyToken, getPractitionerFeedback);
+router.get('/practitioner', authenticateToken, getPractitionerFeedback);
 
 module.exports = router;

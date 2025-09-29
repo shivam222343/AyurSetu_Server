@@ -1,20 +1,20 @@
 const express = require("express");
-const verifyToken = require("../middleware/authMiddleware");
+const { authenticateToken } = require("../middleware/authMiddleware");
 const authorizeRoles = require("../middleware/roleMiddleware");
 const { getUserProfile, updateUserProfile } = require("../controllers/userController");
 
 const router = express.Router();
 
 // Get user profile - accessible by all logged-in users
-router.get("/profile", verifyToken, getUserProfile);
+router.get("/profile", authenticateToken, getUserProfile);
 
 // Update user profile - accessible by all logged-in users
-router.put("/profile", verifyToken, updateUserProfile);
+router.put("/profile", authenticateToken, updateUserProfile);
 
 // Only doctors
 router.get(
   "/doctor-dashboard",
-  verifyToken,
+  authenticateToken,
   authorizeRoles("doctor"),
   (req, res) => {
     res.json({ message: "Doctor Dashboard" });
@@ -24,7 +24,7 @@ router.get(
 // Only patients
 router.get(
   "/patient-dashboard",
-  verifyToken,
+  authenticateToken,
   authorizeRoles("patient"),
   (req, res) => {
     res.json({ message: "Patient Dashboard" });
@@ -34,7 +34,7 @@ router.get(
 // Only admins
 router.get(
   "/admin-dashboard",
-  verifyToken,
+  authenticateToken,
   authorizeRoles("admin"),
   (req, res) => {
     res.json({ message: "Admin Dashboard" });
