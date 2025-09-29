@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const verifyToken = require('../../middleware/authMiddleware');
+const { authenticateToken } = require('../../middleware/authMiddleware');
 const {
   getPatientsWithAppointments,
   getPrescriptionsByDoctor,
@@ -10,7 +10,7 @@ const {
 } = require('../../controllers/doctorPrescriptionController');
 
 // All routes require authentication and doctor role
-router.use(verifyToken);
+router.use(authenticateToken);
 
 // GET /api/doctor/patients-with-appointments
 // Get all patients who have had appointments with this doctor

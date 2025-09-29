@@ -1,5 +1,5 @@
 const express = require('express');
-const verifyToken = require('../middleware/authMiddleware');
+const { authenticateToken } = require('../middleware/authMiddleware');
 const {
   createAppointment,
   getAppointments,
@@ -13,7 +13,7 @@ const {
 const router = express.Router();
 
 // All routes require authentication
-router.use(verifyToken);
+router.use(authenticateToken);
 
 // Appointment routes
 router.post('/appointments', createAppointment);

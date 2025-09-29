@@ -1,5 +1,5 @@
 const express = require('express');
-const verifyToken = require('../middleware/authMiddleware');
+const { authenticateToken } = require('../middleware/authMiddleware');
 const {
   getNotifications,
   markAsRead,
@@ -10,7 +10,7 @@ const {
 
 const router = express.Router();
 
-router.use(verifyToken);
+router.use(authenticateToken);
 
 router.get('/notifications', getNotifications);
 router.put('/notifications/:id/read', markAsRead);
