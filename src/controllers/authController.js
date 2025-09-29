@@ -38,7 +38,7 @@ const login = async (req, res) => {
 
     const token = jwt.sign(
       { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || "AyurSetu",
       { expiresIn: "1h" }
     );
 
@@ -121,7 +121,7 @@ const registerGoogleUser = async (req, res) => {
     // Generate JWT token
     const token = jwt.sign(
       { id: newUser._id, role: newUser.role },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || "AyurSetu",
       { expiresIn: "24h" }
     );
 
@@ -156,7 +156,7 @@ const loginGoogleUser = async (req, res) => {
     // Generate JWT token
     const token = jwt.sign(
       { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || "AyurSetu",
       { expiresIn: "24h" }
     );
 
